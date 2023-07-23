@@ -58,7 +58,7 @@ import java.io.*;
                             JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(rootPanel);
                             frame.setVisible(false);
 
-                            JFrame usserFrame = new JFrame("Usuario");
+                            JFrame usserFrame = new JFrame("Bienvenido");
                             usuarios usuari = new usuarios();
                             usuari.Ingreusuario.setText(usuario1);
                             usserFrame.setContentPane(usuari.rootPanel);
