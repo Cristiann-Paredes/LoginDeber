@@ -4,47 +4,48 @@ import java.awt.event.ActionListener;
 import java.io.*;
 
     public class login {
-        private JPasswordField contras;
+        JPanel rootPanel;
+        private JPasswordField contra;
         private JTextField usuario;
         private JButton registrar;
         private JButton iniciar;
-        JPanel rootPanel;
         private boolean cont = true;
-        private boolean us;
-        private boolean ca;
-        public String username;
-        public String password;
+        private boolean usser;
+        private boolean passw;
+        public String usuario1;
+        public String contra1;
+
 
         public login() {
 
             iniciar.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // Verificar las credenciales (aquí deberías implementar tu lógica de autenticación)
-                    username = usuario.getText();
-                    password = new String(contras.getPassword());
-                    us = false;
-                    ca = false;
+
+                    usuario1 = usuario.getText();
+                    contra1 = new String(contra.getPassword());
+                    usser = false;
+                    passw = false;
 
                     try{
-                        FileInputStream dat = new FileInputStream("USUARIOS.dat");
+                        FileInputStream dat = new FileInputStream("datos.dat");
                         while(cont){
                             ObjectInputStream oos = new ObjectInputStream(dat);
-                            datosUsuarios info = (datosUsuarios) oos.readObject();
+                            DatosUs info = (DatosUs) oos.readObject();
                             if (info != null){
-                                String usuariov = info.getusuario();
-                                String contrav = new String(info.getContrasenia());
-                                //System.out.println(usuariov + " " + contrav + " " + password); PROBADOR PARA COMPARAR CREDENCIALES
-                                if(username.equals(usuariov) && password.equals(contrav)){
-                                    System.out.println("entro"); // PROBAR ENTRA A ESTA CONDICION
-                                    us = true;
-                                    ca = true;
+                                String usuariov = info.getUsuario();
+                                String contrav = new String(info.getContrase());
+
+                                if(usuario1.equals(usuariov) && contra1.equals(contrav)){
+                                    System.out.println("Ingrese correcto");
+                                    usser = true;
+                                    passw = true;
                                     break;
                                 }
                                 else{
-                                    System.out.println("entro-2"); // PROBAR SI ENTRA A ESTA OTRA
+                                    System.out.println("Login Correcto");
                                     usuario.setText("");
-                                    contras.setText("");
+                                    contra.setText("");
                                 }
                             }
 
@@ -53,14 +54,14 @@ import java.io.*;
 
                             }
                         }
-                        if( us == true && ca == true){
+                        if( usser == true && passw == true){
                             JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(rootPanel);
                             frame.setVisible(false);
 
-                            JFrame usserFrame = new JFrame("USUARIO");
-                            usuarios usserventana = new usuarios();
-                            usserventana.datostxt.setText(username);
-                            usserFrame.setContentPane(usserventana.rootPanel);
+                            JFrame usserFrame = new JFrame("Usuario");
+                            usuarios usuari = new usuarios();
+                            usuari.Ingreusuario.setText(usuario1);
+                            usserFrame.setContentPane(usuari.rootPanel);
                             usserFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                             usserFrame.pack();
                             usserFrame.setVisible(true);
@@ -69,7 +70,7 @@ import java.io.*;
                     } catch (FileNotFoundException ex) {
                         throw new RuntimeException(ex);
                     } catch (IOException ex) {
-                        JOptionPane.showMessageDialog(rootPanel, "Credenciales inválidas. Inténtalo de nuevo.");
+                        JOptionPane.showMessageDialog(rootPanel, "Ingreso incorrecto. Intente nuevamente ....");
                     } catch (ClassNotFoundException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -80,14 +81,13 @@ import java.io.*;
             registrar.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // Cerrar la ventana actual de login
+
                     JFrame loginFrame = (JFrame) SwingUtilities.getWindowAncestor(rootPanel);
                     loginFrame.setVisible(false);
 
-                    // Abrir la ventana de registro
                     JFrame registroFrame = new JFrame("Registro");
-                    registros registroVentana = new registros();
-                    registroFrame.setContentPane(registroVentana.rootPanel);
+                    registros registro = new registros();
+                    registroFrame.setContentPane(registro.rootPanel);
                     registroFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     registroFrame.pack();
                     registroFrame.setVisible(true);
@@ -108,7 +108,6 @@ import java.io.*;
             });
         }
     }
-
 
 
 
