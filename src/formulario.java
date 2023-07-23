@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 
-public class registros {
+public class formulario {
 
     public JPanel rootPanel;
     private JTextField ingrenombre;
@@ -18,18 +18,18 @@ public class registros {
     private String passw;
     private JTextField mensaje;
 
-    public registros() {
+    public formulario() {
         registar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DatosUs user = new DatosUs();
+                datos user = new datos();
                 User = ingrenombre.getText();
                 user.setUsuario(User);
                 passw = String.valueOf(contrase.getPassword());
                 user.setContrase(passw);
 
                 try {
-                    FileOutputStream nombreF = new FileOutputStream("datos.dat", true);
+                    FileOutputStream nombreF = new FileOutputStream("usuarios.dat", true);
                     ObjectOutputStream obd = new ObjectOutputStream(nombreF);
                     obd.writeObject(user);
                     ingrenombre.setText("");

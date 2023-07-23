@@ -1,10 +1,10 @@
 import java.io.Serializable;
 
-public class DatosUs implements Serializable {
+public class datos implements Serializable {
     private String usuario;
     private String contrase;
 
-    public DatosUs(String usuario, String contrasenia) {
+    public datos(String usuario, String contrasenia) {
         this.usuario = usuario;
         this.contrase = contrasenia;
     }
@@ -25,6 +25,6 @@ public class DatosUs implements Serializable {
         this.contrase = contrase;
     }
 
-    public DatosUs() {
+    public datos() {
     }
 }

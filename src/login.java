@@ -28,15 +28,15 @@ import java.io.*;
                     passw = false;
 
                     try{
-                        FileInputStream dat = new FileInputStream("datos.dat");
+                        FileInputStream dat = new FileInputStream("usuarios.dat");
                         while(cont){
                             ObjectInputStream oos = new ObjectInputStream(dat);
-                            DatosUs info = (DatosUs) oos.readObject();
+                            datos info = (datos) oos.readObject();
                             if (info != null){
-                                String usuariov = info.getUsuario();
-                                String contrav = new String(info.getContrase());
+                                String user1 = info.getUsuario();
+                                String contr1 = new String(info.getContrase());
 
-                                if(usuario1.equals(usuariov) && contra1.equals(contrav)){
+                                if(usuario1.equals(user1) && contra1.equals(contr1)){
                                     System.out.println("Ingrese correcto");
                                     usser = true;
                                     passw = true;
@@ -86,7 +86,7 @@ import java.io.*;
                     loginFrame.setVisible(false);
 
                     JFrame registroFrame = new JFrame("Registro");
-                    registros registro = new registros();
+                    formulario registro = new formulario();
                     registroFrame.setContentPane(registro.rootPanel);
                     registroFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     registroFrame.pack();
