@@ -4,6 +4,8 @@ Integrantes:
 
 Jimenez Martin 
 
+Novillo Ismael
+
 Paredes Cristian
 
 
