@@ -70,5 +70,6 @@ Validación de credenciales
 Vista de usuarios desde el archivo binary
 
 
-![image](https://github.com/Cristiann-Paredes/LoginDeber/assets/117743846/7804c8a2-2262-420a-94e8-07a5ffe0d387)
+![image](https://github.com/Cristiann-Paredes/LoginDeber/assets/117743846/667afc13-c828-43f2-a0d9-76543cf390c0)
+
 
