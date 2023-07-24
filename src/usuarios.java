@@ -8,13 +8,13 @@ public class usuarios {
     private JButton SALIRButton;
 
     public usuarios(){
+        //creamos una accion para nuestro boton salir y que pueda regresar al Login principal
         SALIRButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame frame1;
                 frame1 = (JFrame) SwingUtilities.getWindowAncestor(rootPanel);
                 frame1.setVisible(false);
-
                 JFrame frame2 = new JFrame("Login");
                 login salir = new login ();
                 frame2.setContentPane(salir.rootPanel);

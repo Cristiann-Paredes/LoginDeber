@@ -9,7 +9,7 @@ import java.io.*;
         private JTextField usuario;
         private JButton registrar;
         private JButton iniciar;
-        private boolean cont = true;
+        private boolean contenido = true;
         private boolean usser;
         private boolean passw;
         public String usuario1;
@@ -22,43 +22,56 @@ import java.io.*;
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
-                    usuario1 = usuario.getText();
-                    contra1 = new String(contra.getPassword());
+                    usuario1 = usuario.getText();// Obtenemos el nombre de usuario ingresado.
+                    contra1 = new String(contra.getPassword());// Obtenemos la contraseña ingresada convertido en String.
+                    // Inicializamos las variables "usser" y "passw" como "false".
                     usser = false;
                     passw = false;
 
-                    try{
+                    try {
+                        // Abrimos el archivo "usuarios.dat".
                         FileInputStream dat = new FileInputStream("usuarios.dat");
-                        while(cont){
-                            ObjectInputStream oos = new ObjectInputStream(dat);
-                            datos info = (datos) oos.readObject();
-                            if (info != null){
-                                String user1 = info.getUsuario();
-                                String contr1 = new String(info.getContrase());
 
-                                if(usuario1.equals(user1) && contra1.equals(contr1)){
+                        while (contenido) {
+
+                            ObjectInputStream oos = new ObjectInputStream(dat);// Creamos un ObjectInputStream para leer objetos del archivo.
+                            datos informacionUsuario = (datos) oos.readObject();// Leemos un objeto "datos" del archivo.
+                            if (informacionUsuario != null) {
+
+                                // Obtenemos el nombre de usuario y la contraseña del objeto.
+                                String user1 = informacionUsuario.getUsuario();
+                                String contr1 = new String(informacionUsuario.getContrase());
+
+                                // Comparamos si el nombre de usuario y la contraseña ingresados coinciden con los almacenados en el archivo.
+                                if (usuario1.equals(user1) && contra1.equals(contr1)) {
                                     System.out.println("Ingrese correcto");
+
+                                    // Si las credenciales son correctas, establecemos "usser" y "passw" a "true" y salimos del ciclo.
                                     usser = true;
                                     passw = true;
                                     break;
-                                }
-                                else{
+                                } else {
                                     System.out.println("Login Correcto");
                                     usuario.setText("");
                                     contra.setText("");
                                 }
-                            }
-
-                            else{
-                                cont = false;
-
+                            } else {
+                                // Si llegamos al final del archivo (objeto nulo), salimos del ciclo.
+                                contenido = false;
                             }
                         }
-                        if( usser == true && passw == true){
+
+                        //Lee el archivo para verificar.
+                        if (usser == true && passw == true) {
+                            // Obtenemos el JFrame actual al que pertenece el botón "iniciar".
                             JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(rootPanel);
+                            // Hacemos que el JFrame actual se vuelva invisible.
                             frame.setVisible(false);
 
+                            // Creamos un nuevo JFrame llamado "usserFrame" para mostrar la ventana de bienvenida.
                             JFrame usserFrame = new JFrame("Bienvenido");
+
+                            // Creamos una instancia de la clase "usuarios".
                             usuarios usuari = new usuarios();
                             usuari.Ingreusuario.setText(usuario1);
                             usserFrame.setContentPane(usuari.rootPanel);
@@ -68,33 +81,37 @@ import java.io.*;
                         }
 
                     } catch (FileNotFoundException ex) {
+                        // Si el archivo "usuarios.dat" no se encuentra, lanzamos una RuntimeException con el error.
                         throw new RuntimeException(ex);
                     } catch (IOException ex) {
+                        // Si ocurre un error de entrada/salida, mostramos un mensaje de error mediante JOptionPane.
                         JOptionPane.showMessageDialog(rootPanel, "Ingreso incorrecto. Intente nuevamente ....");
                     } catch (ClassNotFoundException ex) {
+                        // Si ocurre un error de clase no encontrada al leer el objeto, lanzamos una RuntimeException con el error.
                         throw new RuntimeException(ex);
                     }
-
                 }
             });
 
+        // Agregamos un boton registrar
             registrar.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
+                    // Obtenemos el JFrame "loginFrame" al que pertenece el botón "registrar" mediante SwingUtilities.getWindowAncestor.
                     JFrame loginFrame = (JFrame) SwingUtilities.getWindowAncestor(rootPanel);
-                    loginFrame.setVisible(false);
-
-                    JFrame registroFrame = new JFrame("Registro");
-                    formulario registro = new formulario();
+                    loginFrame.setVisible(false);// Hacemos que el JFrame "loginFrame"
+                    JFrame registroFrame = new JFrame("Registro");// Creamos un nuevo JFrame llamado "registroFrame"
+                    formulario registro = new formulario();// Creamos una instancia de la clase "formulario" donde esta nuestra interfaz form
                     registroFrame.setContentPane(registro.rootPanel);
                     registroFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     registroFrame.pack();
+                    // Hacemos que el JFrame "registroFrame" sea visible, mostrando así la ventana de registro al usuario.
                     registroFrame.setVisible(true);
                 }
             });
-        }
 
+        }
+        //Main principal de nuestra ventana Login
         public static void main(String[] args) {
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
